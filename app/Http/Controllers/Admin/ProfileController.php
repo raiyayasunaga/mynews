@@ -24,7 +24,24 @@ class ProfileController extends Controller
     }
      public function create(Request $request)
     {
-      // admin/news/createにリダイレクトする
+        
+      // 以下を追記
+      // Varidationを行う
+      $this->validate($request, News::$rules);
+      $news = new News;
+      $form = $request->all();
+
+      if (isset($form['image'])) {
+        $path = $request->file('image')->store('public/image');
+        $news->image_path = basename($path);
+      } else {
+          $news->image_path = null;
+      }
+      unset($form['_token']);
+      unset($form['image']);
+      $news->fill($form);
+      $news->save();
+      
       return redirect('admin/news/create');
-    }  
+     }  
 }
