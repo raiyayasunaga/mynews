@@ -12,18 +12,19 @@ class ProfileController extends Controller
         return view('admin.profile.create');
     }
 
-    public function create()
-    {
-        return redirect('admin/profile/create');
-    }
 
     public function edit()
     {
         return view('admin.profile.edit');
     }
 
-    public function update()
+    public function update(Request $request)
     {
         return redirect('admin/profile/edit');
     }
+     public function create(Request $request)
+    {
+      // admin/news/createにリダイレクトする
+      return redirect('admin/news/create');
+    }  
 }
